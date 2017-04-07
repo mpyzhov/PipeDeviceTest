@@ -16,9 +16,17 @@ namespace PipeTestClient
 
             client.Start();
 
-            GetDevices(client);
+            //GetDevices(client);
 
-            //GetDeviceSensors(client, "vid<1b1c>pid<000c0b>serial<454CA1A8>index<0>");
+            //GetDeviceSensors(client, "vid<1b1c>pid<000c10>serial<A6D9D5BE>index<0>");
+
+            SetBarbudaFanQuiet(client);
+            WaitEnter();
+            SetBarbudaFanMax(client);
+
+            //SetBarbudaRainbowAllLedStrip(client);
+            //WaitEnter();
+            //SetBarbudaDefaultLedStrip(client);
 
             //SetAntiguaRainbowAllLedStrip(client);
             //WaitEnter();
@@ -157,6 +165,118 @@ namespace PipeTestClient
             var response = client.Send("cl.device.get-device-sensors", new List<string> { sensorId }).GetAwaiter().GetResult();
 
             Console.WriteLine(response.Result.ToString());
+        }
+
+        private static void SetBarbudaFanQuiet(LinkClient client)
+        {
+            var param = new Dictionary<string, string>();
+
+            param.Add("vid<1b1c>pid<000c10>serial<A6D9D5BE>index<0>senstype<Fan>sensindex<0>",
+            "{'mode': 'fixed-percentage', 'percents': 0}");
+
+            client.Send("cl.sensor.set-values", param).GetAwaiter().GetResult();
+        }
+
+        private static void SetBarbudaFanMax(LinkClient client)
+        {
+            var param = new Dictionary<string, string>();
+
+            param.Add("vid<1b1c>pid<000c10>serial<A6D9D5BE>index<0>senstype<Fan>sensindex<0>",
+            "{'mode': 'max'}");
+
+            client.Send("cl.sensor.set-values", param).GetAwaiter().GetResult();
+        }
+
+        private static void SetBarbudaDefaultLedStrip(LinkClient client)
+        {
+            var param = new Dictionary<string, string>();
+
+            param.Add("vid<1b1c>pid<000c10>serial<A6D9D5BE>index<0>senstype<Led>sensindex<0>",
+            @"{
+'channel-one': 
+    {
+        'channel-type': 'led-strip',
+        'brightness': 100,
+        'groups': [
+            {
+                'group-type': 'rainbow-wave',
+                'speed': 'middle',
+                'direction': 'forward'
+            }
+        ]
+    },
+'channel-two':
+    {
+        'channel-type': 'disconnected'
+    }
+}");
+
+            client.Send("cl.sensor.set-values", param).GetAwaiter().GetResult();
+        }
+
+        private static void SetBarbudaRainbowAllLedStrip(LinkClient client)
+        {
+            var param = new Dictionary<string, string>();
+
+            param.Add("vid<1b1c>pid<000c10>serial<A6D9D5BE>index<0>senstype<Led>sensindex<0>",
+            @"{
+'channel-one': 
+    {
+        'channel-type': 'led-strip',
+        'brightness': 100,
+        'groups': [
+            {
+                'group-type': 'rainbow-wave',
+                'speed': 'middle',
+                'direction': 'forward'
+            },
+            {
+                'group-type': 'rainbow-wave',
+                'speed': 'middle',
+                'direction': 'forward'
+            },
+            {
+                'group-type': 'rainbow-wave',
+                'speed': 'middle',
+                'direction': 'forward'
+            },
+            {
+                'group-type': 'rainbow-wave',
+                'speed': 'middle',
+                'direction': 'forward'
+            },
+        ]
+    },
+'channel-two':
+    {
+        'channel-type': 'led-strip',
+        'brightness': 33,
+        'groups': [
+            {
+                'group-type': 'rainbow-wave',
+                'speed': 'middle',
+                'direction': 'backward'
+            },
+            {
+                'group-type': 'rainbow-wave',
+                'speed': 'fast',
+                'direction': 'forward'
+            },
+            {
+                'group-type': 'rainbow-wave',
+                'speed': 'slow',
+                'direction': 'forward'
+            },
+            {
+                'group-type': 'rainbow-wave',
+                'speed': 'slow',
+                'direction': 'backward'
+            },
+        ]
+    }
+}");
+
+            client.Send("cl.sensor.set-values", param).GetAwaiter().GetResult();
         }
 
         private static void SetAntiguaDefaultLedStrip(LinkClient client)
