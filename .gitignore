@@ -3,3 +3,12 @@
 ################################################################################
 
 /DeviceReader/bin/Debug
+/DeviceReader/obj/Debug
+/Objects/bin/Debug
+/Objects/obj/Debug
+/PipeClient/bin/Debug
+/PipeClient/obj/Debug
+/PipeServer/bin/Debug
+/PipeServer/obj/Debug
+/PipeTestClient/bin/Debug
+/PipeTestClient/obj/Debug
