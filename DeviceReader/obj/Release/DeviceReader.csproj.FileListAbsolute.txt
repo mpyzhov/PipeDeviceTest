@@ -1,0 +1,4 @@
+D:\Projects\Utilities\PipeDeviceTest\DeviceReader\obj\Release\DeviceReader.csprojResolveAssemblyReference.cache
+D:\Projects\Utilities\PipeDeviceTest\DeviceReader\obj\Release\DeviceReader.Form1.resources
+D:\Projects\Utilities\PipeDeviceTest\DeviceReader\obj\Release\DeviceReader.Properties.Resources.resources
+D:\Projects\Utilities\PipeDeviceTest\DeviceReader\obj\Release\DeviceReader.csproj.GenerateResource.Cache

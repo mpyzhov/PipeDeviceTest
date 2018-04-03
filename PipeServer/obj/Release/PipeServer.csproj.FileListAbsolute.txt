@@ -1,0 +1,16 @@
+D:\Projects\Utilities\PipeDeviceTest\PipeServer\bin\Release\PipeServer.exe.config
+D:\Projects\Utilities\PipeDeviceTest\PipeServer\bin\Release\PipeServer.exe
+D:\Projects\Utilities\PipeDeviceTest\PipeServer\bin\Release\PipeServer.pdb
+D:\Projects\Utilities\PipeDeviceTest\PipeServer\bin\Release\Newtonsoft.Json.dll
+D:\Projects\Utilities\PipeDeviceTest\PipeServer\bin\Release\Objects.dll
+D:\Projects\Utilities\PipeDeviceTest\PipeServer\bin\Release\System.Reactive.Core.dll
+D:\Projects\Utilities\PipeDeviceTest\PipeServer\bin\Release\System.Reactive.Interfaces.dll
+D:\Projects\Utilities\PipeDeviceTest\PipeServer\bin\Release\System.Reactive.Linq.dll
+D:\Projects\Utilities\PipeDeviceTest\PipeServer\bin\Release\Objects.pdb
+D:\Projects\Utilities\PipeDeviceTest\PipeServer\bin\Release\Newtonsoft.Json.xml
+D:\Projects\Utilities\PipeDeviceTest\PipeServer\bin\Release\System.Reactive.Core.xml
+D:\Projects\Utilities\PipeDeviceTest\PipeServer\bin\Release\System.Reactive.Interfaces.xml
+D:\Projects\Utilities\PipeDeviceTest\PipeServer\bin\Release\System.Reactive.Linq.xml
+D:\Projects\Utilities\PipeDeviceTest\PipeServer\obj\Release\PipeServer.csprojResolveAssemblyReference.cache
+D:\Projects\Utilities\PipeDeviceTest\PipeServer\obj\Release\PipeServer.exe
+D:\Projects\Utilities\PipeDeviceTest\PipeServer\obj\Release\PipeServer.pdb

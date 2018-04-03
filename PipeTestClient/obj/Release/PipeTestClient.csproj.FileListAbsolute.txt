@@ -1,0 +1,14 @@
+D:\Projects\Utilities\PipeDeviceTest\PipeTestClient\bin\Release\PipeTestClient.exe.config
+D:\Projects\Utilities\PipeDeviceTest\PipeTestClient\bin\Release\PipeTestClient.exe
+D:\Projects\Utilities\PipeDeviceTest\PipeTestClient\bin\Release\PipeTestClient.pdb
+D:\Projects\Utilities\PipeDeviceTest\PipeTestClient\bin\Release\Newtonsoft.Json.dll
+D:\Projects\Utilities\PipeDeviceTest\PipeTestClient\bin\Release\System.Reactive.Core.dll
+D:\Projects\Utilities\PipeDeviceTest\PipeTestClient\bin\Release\System.Reactive.Interfaces.dll
+D:\Projects\Utilities\PipeDeviceTest\PipeTestClient\bin\Release\System.Reactive.Linq.dll
+D:\Projects\Utilities\PipeDeviceTest\PipeTestClient\bin\Release\Newtonsoft.Json.xml
+D:\Projects\Utilities\PipeDeviceTest\PipeTestClient\bin\Release\System.Reactive.Core.xml
+D:\Projects\Utilities\PipeDeviceTest\PipeTestClient\bin\Release\System.Reactive.Interfaces.xml
+D:\Projects\Utilities\PipeDeviceTest\PipeTestClient\bin\Release\System.Reactive.Linq.xml
+D:\Projects\Utilities\PipeDeviceTest\PipeTestClient\obj\Release\PipeTestClient.exe
+D:\Projects\Utilities\PipeDeviceTest\PipeTestClient\obj\Release\PipeTestClient.pdb
+D:\Projects\Utilities\PipeDeviceTest\PipeTestClient\obj\Release\PipeTestClient.csprojResolveAssemblyReference.cache

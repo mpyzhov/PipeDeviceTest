@@ -17,7 +17,5 @@ namespace PipeServer
             Console.WriteLine("Click any button to close...");
             Console.Read();
         }
-
-        
     }
 }

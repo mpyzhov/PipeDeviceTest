@@ -1,0 +1,7 @@
+D:\Projects\Utilities\PipeDeviceTest\Objects\bin\Release\Objects.dll
+D:\Projects\Utilities\PipeDeviceTest\Objects\bin\Release\Objects.pdb
+D:\Projects\Utilities\PipeDeviceTest\Objects\bin\Release\Newtonsoft.Json.dll
+D:\Projects\Utilities\PipeDeviceTest\Objects\bin\Release\Newtonsoft.Json.xml
+D:\Projects\Utilities\PipeDeviceTest\Objects\obj\Release\Objects.csprojResolveAssemblyReference.cache
+D:\Projects\Utilities\PipeDeviceTest\Objects\obj\Release\Objects.dll
+D:\Projects\Utilities\PipeDeviceTest\Objects\obj\Release\Objects.pdb
