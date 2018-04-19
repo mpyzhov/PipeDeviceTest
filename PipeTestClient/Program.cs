@@ -140,6 +140,10 @@ namespace PipeTestClient
 
             client.Start();
 
+            //SetPlatinumFanFixed(client);
+            //GetDevices(client);
+            //SetFalcataPulseDram(client);
+            //UpdateFirmwareDram(client);
             //SaveToDevice(client);
 
             //TypeAndFun(client);
@@ -184,22 +188,43 @@ namespace PipeTestClient
             ////while (true)
             ////{
             ////    //sw.Restart();
+
+            //SetPlatinumFanFixed(client);
             //GetDevices(client);
+            //SetRainbowDram3(client);
+            //Console.ReadLine();
+            //SetRainbowDram2(client);
+            //Console.ReadLine();
+            //SetRainbowDram1(client);
+            //UpdateFirmwareStarcooler(client);
+            //SetSyncDram(client);
 
-            UpdateFirmwareStarcooler(client);
 
-            while (true)
-            {
-                var r = client.ReadRequest().GetAwaiter().GetResult();
-                if (r != null)
-                    Console.WriteLine(r.Params.ToString());
-            }
+            //FalcataTest(client);
+
+            SetFalcataStaticDram(client);
+            //UpdateFirmwareDram(client);
+
+            //while (true)
+            //{
+            //    var r = client.ReadRequest().GetAwaiter().GetResult();
+            //    if (r != null)
+            //        Console.WriteLine(r.Params.ToString());
+            //}
+
+            //SetSyncDram(client);
+            //SetFalcataPulseDram(client);
+
+            //SetAntiguaDefaultLedStrip(client);
+
+            // TypeAndFun(client);
+
             //SetBarbudaFanCustom(client, "vid<1b1c>pid<001d00>serial<179F35BC>index<0>senstype<Fan>sensindex<3>");
             //SetJotunTestMlFan(client);
 
             //TypeAndFun(client);
 
-            //GetDeviceSensors(client, "vid<1b1c>pid<001d00>serial<179F35BC>index<0>");
+            //GetDeviceSensors(client, "vid<1b1c>pid<000c10>serial<91B3D2F1>index<0>");
             ////    GetDeviceSensors(client, "vid<1b1c>pid<000c0b>serial<12C37083>index<0>");
             ////    //sw.Stop();
             ////    //double fps = 1000.00 / (sw.ElapsedMilliseconds != 0 ? sw.ElapsedMilliseconds : 1);
@@ -333,13 +358,13 @@ namespace PipeTestClient
 
             //while (true)
             //{
-            //    //SetTempNotification(client);
-            //    //Thread.Sleep(1000);
-            //    //
+            //    SetTempNotification(client);
+            //    Thread.Sleep(1000);
+
             //    Console.ReadLine();
             //    SetTempNotificationOff(client);
             //    SuppressNotification(client);
-            //    //Thread.Sleep(1000);
+            //    Thread.Sleep(1000);
             //}
             //SetH80Test2(client);
 
@@ -534,7 +559,7 @@ namespace PipeTestClient
 
         private static void TypeAndFun(LinkClient client)
         {
-            colors = Enumerable.Repeat<string>("#000000", 96).ToList();
+            colors = Enumerable.Repeat<string>("#FF0000", 96).ToList();
 
             //int count = 300;
 
@@ -544,7 +569,7 @@ namespace PipeTestClient
                 {
                     lock (sendLocker)
                     {
-                        SetAntiguaDirectLightType(client, "vid<1b1c>pid<001d00>serial<401C4D58>index<0>senstype<Led>sensindex<0>");
+                        SetAntiguaDirectLightType(client, "vid<1b1c>pid<000c0b>serial<7E02550A>index<0>senstype<Led>sensindex<0>");
                         //SetAntiguaDirectLightType(client, "vid<1b1c>pid<000c10>serial<46CA42AB>index<0>senstype<Led>sensindex<0>");
                         //SetAntiguaDirectLightType(client, "vid<1b1c>pid<000c10>serial<FE0AB5FC>index<0>senstype<Led>sensindex<0>");
 
@@ -655,39 +680,39 @@ namespace PipeTestClient
             {
                 lock (locker)
                 {
-                    colors.RemoveAt(colors.Count - 1);
+                    //colors.RemoveAt(colors.Count - 1);
 
-                    if (r < 256)
-                    {
-                        Color(r, 0, 0);
-                        r += step;
-                    }
-                    else if (g < 256)
-                    {
-                        Color(0, g, 0);
-                        g += step;
-                    }
-                    else if (b < 256)
-                    {
-                        Color(0, 0, b);
-                        b += step;
-                    }
-                    else
-                    {
-                        r = g = b = 0;
-                        Color(0, 0, 0);
+                    //if (r < 256)
+                    //{
+                    //    Color(r, 0, 0);
+                    //    r += step;
+                    //}
+                    //else if (g < 256)
+                    //{
+                    //    Color(0, g, 0);
+                    //    g += step;
+                    //}
+                    //else if (b < 256)
+                    //{
+                    //    Color(0, 0, b);
+                    //    b += step;
+                    //}
+                    //else
+                    //{
+                    //    r = g = b = 0;
+                    //    Color(0, 0, 0);
 
-                        if (step == 5)
-                        {
-                            isup = true;
-                        }
-                        else if (step == 20)
-                        {
-                            isup = false;
-                        }
+                    //    if (step == 5)
+                    //    {
+                    //        isup = true;
+                    //    }
+                    //    else if (step == 20)
+                    //    {
+                    //        isup = false;
+                    //    }
 
-                        step = step + (isup ? 1 : -1);
-                    }
+                    //    step = step + (isup ? 1 : -1);
+                    //}
                 }
 
                 var param = new Dictionary<string, string>();
@@ -1774,6 +1799,646 @@ namespace PipeTestClient
             client.Send("cl.sensor.set-settings", param).GetAwaiter().GetResult();
         }
 
+        private static void SetSyncDram(LinkClient client)
+        {
+            var param = @"{
+'sensor-id': 'vid<1b1c>pid<000004>serial<VENGEANCERGBPRO>index<0>senstype<Led>sensindex<2>',
+'timestamp': 0,
+'request-type': 'start'
+}";
+            client.Send("cl.sensor.timestamp-sync", param).GetAwaiter().GetResult();
+        }
+
+        private static void FalcataTest(LinkClient client)
+        {
+            var param = new Dictionary<string, string>();
+
+            param.Add("vid<1b1c>pid<000004>serial<VENGEANCERGBPRO>index<0>senstype<Led>sensindex<0>",
+            @"{ 
+                'brightness': 10, 
+                'mode': 'color-wave', 
+                'speed': 'medium',
+                'direction': 'down',
+                'random-seed': 100,
+                'colors': [ '#ff0000', '#00ff00' ],
+                'sync-modules': [0, 1, 2, 3],
+                'geometries': [
+                    { 
+                        'index': 0,
+                        'top-left-x': 0,
+                        'top-left-y': 0,
+                        'bottom-right-x': 2000,
+                        'bottom-right-y': 2000,
+                        'points': [
+                            { 'x': 0, 'y': 1800 },
+                            { 'x': 0, 'y': 1600 },
+                            { 'x': 0, 'y': 1400 },
+                            { 'x': 0, 'y': 1200 },
+                            { 'x': 0, 'y': 1000 },
+                            { 'x': 0, 'y': 800  },
+                            { 'x': 0, 'y': 600  },
+                            { 'x': 0, 'y': 400  },
+                            { 'x': 0, 'y': 200  },
+                            { 'x': 0, 'y': 0    },
+                        ]
+                    },
+                    { 
+                        'index': 1,
+                        'top-left-x': 0,
+                        'top-left-y': 0,
+                        'bottom-right-x': 2000,
+                        'bottom-right-y': 2000,
+                        'points': [
+                            { 'x': 200, 'y': 1800  },
+                            { 'x': 200, 'y': 1600  },
+                            { 'x': 200, 'y': 1400  },
+                            { 'x': 200, 'y': 1200  },
+                            { 'x': 200, 'y': 1000  },
+                            { 'x': 200, 'y': 800   },
+                            { 'x': 200, 'y': 600   },
+                            { 'x': 200, 'y': 400   },
+                            { 'x': 200, 'y': 200   },
+                            { 'x': 200, 'y': 0    },
+                        ]
+                    },
+                    { 
+                        'index': 2,
+                        'top-left-x': 0,
+                        'top-left-y': 0,
+                        'bottom-right-x': 2000,
+                        'bottom-right-y': 2000,
+                        'points': [
+                            { 'x': 400, 'y': 1800  },
+                            { 'x': 400, 'y': 1600  },
+                            { 'x': 400, 'y': 1400  },
+                            { 'x': 400, 'y': 1200  },
+                            { 'x': 400, 'y': 1000  },
+                            { 'x': 400, 'y': 800   },
+                            { 'x': 400, 'y': 600   },
+                            { 'x': 400, 'y': 400   },
+                            { 'x': 400, 'y': 200   },
+                            { 'x': 400, 'y': 0    },
+                        ]
+                    },
+                    { 
+                        'index': 3,
+                        'top-left-x': 0,
+                        'top-left-y': 0,
+                        'bottom-right-x': 2000,
+                        'bottom-right-y': 2000,
+                        'points': [
+                            { 'x': 600, 'y': 1800  },
+                            { 'x': 600, 'y': 1600  },
+                            { 'x': 600, 'y': 1400  },
+                            { 'x': 600, 'y': 1200  },
+                            { 'x': 600, 'y': 1000  },
+                            { 'x': 600, 'y': 800   },
+                            { 'x': 600, 'y': 600   },
+                            { 'x': 600, 'y': 400   },
+                            { 'x': 600, 'y': 200   },
+                            { 'x': 600, 'y': 0    },
+                        ]
+                    }
+                ]
+}                
+");
+
+            param.Add("vid<1b1c>pid<000004>serial<VENGEANCERGBPRO>index<4>senstype<Led>sensindex<0>",
+            @"{ 
+                'brightness': 10, 
+                'mode': 'color-wave', 
+                'speed': 'medium',
+                'direction': 'down',
+                'random-seed': 100,
+                'colors': [ '#0000ff', '#00ff00' ],
+                'sync-modules': [4, 5, 6, 7],
+                'geometries': [
+                    { 
+                        'index': 4,
+                        'top-left-x': 0,
+                        'top-left-y': 0,
+                        'bottom-right-x': 2000,
+                        'bottom-right-y': 2000,
+                        'points': [
+                            { 'x': 1400, 'y': 0    },
+                            { 'x': 1400, 'y': 200  },
+                            { 'x': 1400, 'y': 400  },
+                            { 'x': 1400, 'y': 600  },
+                            { 'x': 1400, 'y': 800  },
+                            { 'x': 1400, 'y': 1000 },
+                            { 'x': 1400, 'y': 1200 },
+                            { 'x': 1400, 'y': 1400 },
+                            { 'x': 1400, 'y': 1600 },
+                            { 'x': 1400, 'y': 1800 },
+                        ]
+                    },
+                    { 
+                        'index': 5,
+                        'top-left-x': 0,
+                        'top-left-y': 0,
+                        'bottom-right-x': 2000,
+                        'bottom-right-y': 2000,
+                        'points': [
+                            { 'x': 1600, 'y': 0    },
+                            { 'x': 1600, 'y': 200  },
+                            { 'x': 1600, 'y': 400  },
+                            { 'x': 1600, 'y': 600  },
+                            { 'x': 1600, 'y': 800  },
+                            { 'x': 1600, 'y': 1000 },
+                            { 'x': 1600, 'y': 1200 },
+                            { 'x': 1600, 'y': 1400 },
+                            { 'x': 1600, 'y': 1600 },
+                            { 'x': 1600, 'y': 1800},
+                        ]
+                    },
+                    { 
+                        'index': 6,
+                        'top-left-x': 0,
+                        'top-left-y': 0,
+                        'bottom-right-x': 2000,
+                        'bottom-right-y': 2000,
+                        'points': [
+                            { 'x': 1800, 'y': 0    },
+                            { 'x': 1800, 'y': 200  },
+                            { 'x': 1800, 'y': 400  },
+                            { 'x': 1800, 'y': 600  },
+                            { 'x': 1800, 'y': 800  },
+                            { 'x': 1800, 'y': 1000 },
+                            { 'x': 1800, 'y': 1200 },
+                            { 'x': 1800, 'y': 1400 },
+                            { 'x': 1800, 'y': 1600 },
+                            { 'x': 1800, 'y': 1800},
+                        ]
+                    },
+                    { 
+                        'index': 7,
+                        'top-left-x': 0,
+                        'top-left-y': 0,
+                        'bottom-right-x': 2000,
+                        'bottom-right-y': 2000,
+                        'points': [
+                            { 'x': 2000, 'y': 0    },
+                            { 'x': 2000, 'y': 200  },
+                            { 'x': 2000, 'y': 400  },
+                            { 'x': 2000, 'y': 600  },
+                            { 'x': 2000, 'y': 800  },
+                            { 'x': 2000, 'y': 1000 },
+                            { 'x': 2000, 'y': 1200 },
+                            { 'x': 2000, 'y': 1400 },
+                            { 'x': 2000, 'y': 1600 },
+                            { 'x': 2000, 'y': 1800},
+                        ]
+                    }
+                ]
+}                
+");
+            client.Send("cl.sensor.set-settings", param).GetAwaiter().GetResult();
+
+            //Thread.Sleep(800);
+
+            GetDevices(client);
+
+            Stopwatch sw = Stopwatch.StartNew();
+
+            SetSyncStartDramTest0(client, sw.ElapsedMilliseconds);
+            SetSyncStartDramTest4(client, sw.ElapsedMilliseconds);
+
+            while (true)
+            {
+                Console.WriteLine();
+                Thread.Sleep(1000);
+                SetSyncStartDramTest4(client, sw.ElapsedMilliseconds);
+                SetSyncDramTest0(client, sw.ElapsedMilliseconds);
+
+
+                //SetSyncDramTest4(client, sw.ElapsedMilliseconds);
+                //SetSyncStartDramTest4(client, sw.ElapsedMilliseconds);
+                //SetSyncStartDramTest0(client, sw.ElapsedMilliseconds);
+
+                //Thread.Sleep(2000);
+            }
+        }
+
+
+        private static void SetSyncDramTest0(LinkClient client, long timestamp)
+        {
+            var param = string.Format(@"{{
+'sensor-id': 'vid<1b1c>pid<000004>serial<VENGEANCERGBPRO>index<0>senstype<Led>sensindex<0>',
+'timestamp': {0}
+}}", timestamp);
+            client.Send("cl.sensor.timestamp-sync", param).GetAwaiter().GetResult();
+
+            Console.WriteLine(DateTime.Now + " Sync #0            ===> " + timestamp);
+        }
+
+        private static void SetSyncDramTest4(LinkClient client, long timestamp)
+        {
+            var param = string.Format(@"{{
+'sensor-id': 'vid<1b1c>pid<000004>serial<VENGEANCERGBPRO>index<4>senstype<Led>sensindex<0>',
+'timestamp': {0}
+}}", timestamp);
+            client.Send("cl.sensor.timestamp-sync", param).GetAwaiter().GetResult();
+
+            Console.WriteLine(DateTime.Now + " Sync #4            ===> " + timestamp);
+        }
+
+        private static void SetSyncStartDramTest0(LinkClient client, long timestamp)
+        {
+            var param = string.Format(@"{{
+'sensor-id': 'vid<1b1c>pid<000004>serial<VENGEANCERGBPRO>index<0>senstype<Led>sensindex<0>',
+'timestamp': {0},
+'request-type': 'start'
+}}", timestamp);
+            client.Send("cl.sensor.timestamp-sync", param).GetAwaiter().GetResult();
+
+            Console.WriteLine(DateTime.Now + " Sync with start #0 ===> " + timestamp);
+        }
+
+        private static void SetSyncStartDramTest4(LinkClient client, long timestamp)
+        {
+            var param = string.Format(@"{{
+'sensor-id': 'vid<1b1c>pid<000004>serial<VENGEANCERGBPRO>index<4>senstype<Led>sensindex<0>',
+'timestamp': {0},
+'request-type': 'start'
+}}", timestamp);
+            client.Send("cl.sensor.timestamp-sync", param).GetAwaiter().GetResult();
+            Console.WriteLine(DateTime.Now + " Sync with start #4 ===> " + timestamp);
+        }
+
+        private static void SetFalcataStaticDram(LinkClient client)
+        {
+            var param = new Dictionary<string, string>();
+
+            param.Add("vid<1b1c>pid<000004>serial<VENGEANCERGBPRO>index<0>senstype<Led>sensindex<0>",
+            @"{ 
+                'brightness': 10, 
+                'mode': 'static', 
+                'speed': 'medium',
+                'direction': 'right',
+                'random-seed': 100,
+                'colors': [ '#ff0000', '#00ff00' ],
+                'sync-modules': [0, 1, 2, 3]
+            }                
+");
+
+            param.Add("vid<1b1c>pid<000004>serial<VENGEANCERGBPRO>index<4>senstype<Led>sensindex<0>",
+            @"{ 
+                'brightness': 10, 
+                'mode': 'static', 
+                'speed': 'medium',
+                'direction': 'right',
+                'random-seed': 100,
+                'colors': [ '#00ff00', '#ff0000'  ],
+                'sync-modules': [ 4, 5, 6, 7]
+            }                
+");
+            client.Send("cl.sensor.set-settings", param).GetAwaiter().GetResult();
+        }
+
+        private static void SetFalcataPulseDram(LinkClient client)
+        {
+            var param = new Dictionary<string, string>();
+
+            param.Add("vid<1b1c>pid<000004>serial<VENGEANCERGBPRO>index<0>senstype<Led>sensindex<0>",
+            @"{ 
+                'brightness': 10, 
+                'mode': 'visor', 
+                'speed': 'medium',
+                'direction': 'right',
+                'random-seed': 100,
+                'colors': [ '#ff0000', '#00ff00' ],
+                'sync-modules': [0, 1, 2, 3, 4, 5, 6, 7],
+                'geometries': [
+                    { 
+                        'index': 0,
+                        'top-left-x': 0,
+                        'top-left-y': 0,
+                        'bottom-right-x': 2000,
+                        'bottom-right-y': 2000,
+                        'points': [
+                            { 'x': 0, 'y': 1800 },
+                            { 'x': 0, 'y': 1600 },
+                            { 'x': 0, 'y': 1400 },
+                            { 'x': 0, 'y': 1200 },
+                            { 'x': 0, 'y': 1000 },
+                            { 'x': 0, 'y': 800  },
+                            { 'x': 0, 'y': 600  },
+                            { 'x': 0, 'y': 400  },
+                            { 'x': 0, 'y': 200  },
+                            { 'x': 0, 'y': 0    },
+                        ]
+                    },
+                    { 
+                        'index': 1,
+                        'top-left-x': 0,
+                        'top-left-y': 0,
+                        'bottom-right-x': 2000,
+                        'bottom-right-y': 2000,
+                        'points': [
+                            { 'x': 200, 'y': 1800  },
+                            { 'x': 200, 'y': 1600  },
+                            { 'x': 200, 'y': 1400  },
+                            { 'x': 200, 'y': 1200  },
+                            { 'x': 200, 'y': 1000  },
+                            { 'x': 200, 'y': 800   },
+                            { 'x': 200, 'y': 600   },
+                            { 'x': 200, 'y': 400   },
+                            { 'x': 200, 'y': 200   },
+                            { 'x': 200, 'y': 0    },
+                        ]
+                    },
+                    { 
+                        'index': 2,
+                        'top-left-x': 0,
+                        'top-left-y': 0,
+                        'bottom-right-x': 2000,
+                        'bottom-right-y': 2000,
+                        'points': [
+                            { 'x': 400, 'y': 1800  },
+                            { 'x': 400, 'y': 1600  },
+                            { 'x': 400, 'y': 1400  },
+                            { 'x': 400, 'y': 1200  },
+                            { 'x': 400, 'y': 1000  },
+                            { 'x': 400, 'y': 800   },
+                            { 'x': 400, 'y': 600   },
+                            { 'x': 400, 'y': 400   },
+                            { 'x': 400, 'y': 200   },
+                            { 'x': 400, 'y': 0    },
+                        ]
+                    },
+                    { 
+                        'index': 3,
+                        'top-left-x': 0,
+                        'top-left-y': 0,
+                        'bottom-right-x': 2000,
+                        'bottom-right-y': 2000,
+                        'points': [
+                            { 'x': 600, 'y': 1800  },
+                            { 'x': 600, 'y': 1600  },
+                            { 'x': 600, 'y': 1400  },
+                            { 'x': 600, 'y': 1200  },
+                            { 'x': 600, 'y': 1000  },
+                            { 'x': 600, 'y': 800   },
+                            { 'x': 600, 'y': 600   },
+                            { 'x': 600, 'y': 400   },
+                            { 'x': 600, 'y': 200   },
+                            { 'x': 600, 'y': 0    },
+                        ]
+                    },
+                    { 
+                        'index': 4,
+                        'top-left-x': 0,
+                        'top-left-y': 0,
+                        'bottom-right-x': 2000,
+                        'bottom-right-y': 2000,
+                        'points': [
+                            { 'x': 1400, 'y': 0    },
+                            { 'x': 1400, 'y': 200  },
+                            { 'x': 1400, 'y': 400  },
+                            { 'x': 1400, 'y': 600  },
+                            { 'x': 1400, 'y': 800  },
+                            { 'x': 1400, 'y': 1000 },
+                            { 'x': 1400, 'y': 1200 },
+                            { 'x': 1400, 'y': 1400 },
+                            { 'x': 1400, 'y': 1600 },
+                            { 'x': 1400, 'y': 1800 },
+                        ]
+                    },
+                    { 
+                        'index': 5,
+                        'top-left-x': 0,
+                        'top-left-y': 0,
+                        'bottom-right-x': 2000,
+                        'bottom-right-y': 2000,
+                        'points': [
+                            { 'x': 1600, 'y': 0    },
+                            { 'x': 1600, 'y': 200  },
+                            { 'x': 1600, 'y': 400  },
+                            { 'x': 1600, 'y': 600  },
+                            { 'x': 1600, 'y': 800  },
+                            { 'x': 1600, 'y': 1000 },
+                            { 'x': 1600, 'y': 1200 },
+                            { 'x': 1600, 'y': 1400 },
+                            { 'x': 1600, 'y': 1600 },
+                            { 'x': 1600, 'y': 1800},
+                        ]
+                    },
+                    { 
+                        'index': 6,
+                        'top-left-x': 0,
+                        'top-left-y': 0,
+                        'bottom-right-x': 2000,
+                        'bottom-right-y': 2000,
+                        'points': [
+                            { 'x': 1800, 'y': 0    },
+                            { 'x': 1800, 'y': 200  },
+                            { 'x': 1800, 'y': 400  },
+                            { 'x': 1800, 'y': 600  },
+                            { 'x': 1800, 'y': 800  },
+                            { 'x': 1800, 'y': 1000 },
+                            { 'x': 1800, 'y': 1200 },
+                            { 'x': 1800, 'y': 1400 },
+                            { 'x': 1800, 'y': 1600 },
+                            { 'x': 1800, 'y': 1800},
+                        ]
+                    },
+                    { 
+                        'index': 7,
+                        'top-left-x': 0,
+                        'top-left-y': 0,
+                        'bottom-right-x': 2000,
+                        'bottom-right-y': 2000,
+                        'points': [
+                            { 'x': 2000, 'y': 0    },
+                            { 'x': 2000, 'y': 200  },
+                            { 'x': 2000, 'y': 400  },
+                            { 'x': 2000, 'y': 600  },
+                            { 'x': 2000, 'y': 800  },
+                            { 'x': 2000, 'y': 1000 },
+                            { 'x': 2000, 'y': 1200 },
+                            { 'x': 2000, 'y': 1400 },
+                            { 'x': 2000, 'y': 1600 },
+                            { 'x': 2000, 'y': 1800},
+                        ]
+                    }
+                ]
+}                
+");
+            client.Send("cl.sensor.set-settings", param).GetAwaiter().GetResult();
+        }
+
+        private static void SetFalcataPulseDramBak(LinkClient client)
+        {
+            var param = new Dictionary<string, string>();
+
+            param.Add("vid<1b1c>pid<000004>serial<VENGEANCERGBPRO>index<0>senstype<Led>sensindex<0>",
+            @"{ 
+                'brightness': 10, 
+                'mode': 'spiral-rainbow', 
+                'speed': 'slow',
+                'direction': 'clockwise',
+                'random-seed': 100,
+                'colors': [ '#ff0000' ],
+                'sync-modules': [0, 1, 2, 3, 4, 5, 6, 7],
+                'geometries': [
+                    { 
+                        'index': 0,
+                        'top-left-x': 0,
+                        'top-left-y': 2000,
+                        'bottom-right-x': 2000,
+                        'bottom-right-y': 0,
+                        'points': [
+                            { 'x': 0, 'y': 1800 },
+                            { 'x': 0, 'y': 1600 },
+                            { 'x': 0, 'y': 1400 },
+                            { 'x': 0, 'y': 1200 },
+                            { 'x': 0, 'y': 1000 },
+                            { 'x': 0, 'y': 800  },
+                            { 'x': 0, 'y': 600  },
+                            { 'x': 0, 'y': 400  },
+                            { 'x': 0, 'y': 200  },
+                            { 'x': 0, 'y': 0    },
+                        ]
+                    },
+                    { 
+                        'index': 1,
+                        'top-left-x': 0,
+                        'top-left-y': 2000,
+                        'bottom-right-x': 2000,
+                        'bottom-right-y': 0,
+                        'points': [
+                            { 'x': 200, 'y': 1800  },
+                            { 'x': 200, 'y': 1600  },
+                            { 'x': 200, 'y': 1400  },
+                            { 'x': 200, 'y': 1200  },
+                            { 'x': 200, 'y': 1000  },
+                            { 'x': 200, 'y': 800   },
+                            { 'x': 200, 'y': 600   },
+                            { 'x': 200, 'y': 400   },
+                            { 'x': 200, 'y': 200   },
+                            { 'x': 200, 'y': 0    },
+                        ]
+                    },
+                    { 
+                        'index': 2,
+                        'top-left-x': 0,
+                        'top-left-y': 2000,
+                        'bottom-right-x': 2000,
+                        'bottom-right-y': 0,
+                        'points': [
+                            { 'x': 400, 'y': 1800  },
+                            { 'x': 400, 'y': 1600  },
+                            { 'x': 400, 'y': 1400  },
+                            { 'x': 400, 'y': 1200  },
+                            { 'x': 400, 'y': 1000  },
+                            { 'x': 400, 'y': 800   },
+                            { 'x': 400, 'y': 600   },
+                            { 'x': 400, 'y': 400   },
+                            { 'x': 400, 'y': 200   },
+                            { 'x': 400, 'y': 0    },
+                        ]
+                    },
+                    { 
+                        'index': 3,
+                        'top-left-x': 0,
+                        'top-left-y': 2000,
+                        'bottom-right-x': 2000,
+                        'bottom-right-y': 0,
+                        'points': [
+                            { 'x': 600, 'y': 1800  },
+                            { 'x': 600, 'y': 1600  },
+                            { 'x': 600, 'y': 1400  },
+                            { 'x': 600, 'y': 1200  },
+                            { 'x': 600, 'y': 1000  },
+                            { 'x': 600, 'y': 800   },
+                            { 'x': 600, 'y': 600   },
+                            { 'x': 600, 'y': 400   },
+                            { 'x': 600, 'y': 200   },
+                            { 'x': 600, 'y': 0    },
+                        ]
+                    },
+                    { 
+                        'index': 4,
+                        'top-left-x': 0,
+                        'top-left-y': 2000,
+                        'bottom-right-x': 2000,
+                        'bottom-right-y': 0,
+                        'points': [
+                            { 'x': 1400, 'y': 0    },
+                            { 'x': 1400, 'y': 200  },
+                            { 'x': 1400, 'y': 400  },
+                            { 'x': 1400, 'y': 600  },
+                            { 'x': 1400, 'y': 800  },
+                            { 'x': 1400, 'y': 1000 },
+                            { 'x': 1400, 'y': 1200 },
+                            { 'x': 1400, 'y': 1400 },
+                            { 'x': 1400, 'y': 1600 },
+                            { 'x': 1400, 'y': 1800 },
+                        ]
+                    },
+                    { 
+                        'index': 5,
+                        'top-left-x': 0,
+                        'top-left-y': 2000,
+                        'bottom-right-x': 2000,
+                        'bottom-right-y': 0,
+                        'points': [
+                            { 'x': 1600, 'y': 0    },
+                            { 'x': 1600, 'y': 200  },
+                            { 'x': 1600, 'y': 400  },
+                            { 'x': 1600, 'y': 600  },
+                            { 'x': 1600, 'y': 800  },
+                            { 'x': 1600, 'y': 1000 },
+                            { 'x': 1600, 'y': 1200 },
+                            { 'x': 1600, 'y': 1400 },
+                            { 'x': 1600, 'y': 1600 },
+                            { 'x': 1600, 'y': 1800},
+                        ]
+                    },
+                    { 
+                        'index': 6,
+                        'top-left-x': 0,
+                        'top-left-y': 2000,
+                        'bottom-right-x': 2000,
+                        'bottom-right-y': 0,
+                        'points': [
+                            { 'x': 1800, 'y': 0    },
+                            { 'x': 1800, 'y': 200  },
+                            { 'x': 1800, 'y': 400  },
+                            { 'x': 1800, 'y': 600  },
+                            { 'x': 1800, 'y': 800  },
+                            { 'x': 1800, 'y': 1000 },
+                            { 'x': 1800, 'y': 1200 },
+                            { 'x': 1800, 'y': 1400 },
+                            { 'x': 1800, 'y': 1600 },
+                            { 'x': 1800, 'y': 1800},
+                        ]
+                    },
+                    { 
+                        'index': 7,
+                        'top-left-x': 0,
+                        'top-left-y': 2000,
+                        'bottom-right-x': 2000,
+                        'bottom-right-y': 0,
+                        'points': [
+                            { 'x': 2000, 'y': 0    },
+                            { 'x': 2000, 'y': 200  },
+                            { 'x': 2000, 'y': 400  },
+                            { 'x': 2000, 'y': 600  },
+                            { 'x': 2000, 'y': 800  },
+                            { 'x': 2000, 'y': 1000 },
+                            { 'x': 2000, 'y': 1200 },
+                            { 'x': 2000, 'y': 1400 },
+                            { 'x': 2000, 'y': 1600 },
+                            { 'x': 2000, 'y': 1800},
+                        ]
+                    }
+                ]
+}                
+");
+            client.Send("cl.sensor.set-settings", param).GetAwaiter().GetResult();
+        }
+
         private static void SetSensorSettings(LinkClient client, string sensorId, string settingsPath)
         {
             try
@@ -1800,12 +2465,30 @@ namespace PipeTestClient
             client.Send("cl.sensor.set-settings", param).GetAwaiter().GetResult();
         }
 
-        private static void SetRainbowDram(LinkClient client)
+        private static void SetRainbowDram3(LinkClient client)
         {
             var param = new Dictionary<string, string>();
 
-            param.Add("vid<1b1c>pid<000004>serial<CMR32GX4M4C3466C16>index<0>senstype<Led>sensindex<0>",
-            "{'mode': 'rainbow', 'speed': '10', 'sync-modules': [0, 1, 2, 3],'sync-delay':'none','sync-direction':'left-to-right'}");
+            param.Add("vid<1b1c>pid<000004>serial<VENGEANCERGBPRO>index<3>senstype<Led>sensindex<0>",
+            "{'mode': 'rainbow', 'speed': 'slow', 'direction': 'up', 'sync-modules': [3]}");
+            client.Send("cl.sensor.set-settings", param).GetAwaiter().GetResult();
+        }
+
+        private static void SetRainbowDram2(LinkClient client)
+        {
+            var param = new Dictionary<string, string>();
+
+            param.Add("vid<1b1c>pid<000004>serial<VENGEANCERGBPRO>index<2>senstype<Led>sensindex<0>",
+             "{'mode': 'rainbow', 'speed': 'slow', 'direction': 'up', 'sync-modules': [2, 3]}");
+            client.Send("cl.sensor.set-settings", param).GetAwaiter().GetResult();
+        }
+
+        private static void SetRainbowDram1(LinkClient client)
+        {
+            var param = new Dictionary<string, string>();
+
+            param.Add("vid<1b1c>pid<000004>serial<VENGEANCERGBPRO>index<1>senstype<Led>sensindex<0>",
+             "{'mode': 'rainbow', 'speed': 'slow', 'direction': 'up', 'sync-modules': [1, 2, 3]}");
             client.Send("cl.sensor.set-settings", param).GetAwaiter().GetResult();
         }
 
@@ -1828,7 +2511,15 @@ namespace PipeTestClient
             
             client.Send("cl.device.fw-update", param).Wait();
         }
+        
 
+        private static void UpdateFirmwareDram(LinkClient client)
+        {
+            //var param = "{'device-id': 'vid<1b1c>pid<000c10>serial<B373D412>index<0>', 'path': 'D:\\\\CommanderPRO 0.5.182.cyacd'}";
+            var param = "{'device-id': 'vid<1b1c>pid<000004>serial<VENGEANCERGBPRO>index<0>', 'path': 'D:\\\\App2_arbGeometry_coarseTs.bin'}";
+
+            client.Send("cl.device.fw-update", param).Wait();
+        }
         private static void UpdateFirmwareAntigua(LinkClient client)
         {
             //var param = "{'device-id': 'vid<1b1c>pid<000c10>serial<B373D412>index<0>', 'path': 'D:\\\\CommanderPRO 0.5.182.cyacd'}";
@@ -1864,6 +2555,17 @@ namespace PipeTestClient
             var param = "vid<1b1c>pid<000c13>serial<4660;7289_2.0>index<0>";
 
             client.Send("cl.device.save-to-device", param).Wait();
+        }
+
+        private static void SetPlatinumFanFixed(LinkClient client)
+        {
+            var param = new Dictionary<string, string>();
+
+            param.Add("vid<1b1c>pid<000c18>serial<6&3aa8400d&0&0000>index<0>senstype<Fan>sensindex<0>",
+            //param.Add("vid<1b1c>pid<000c17>serial<6&2334e920&0&0000>index<0>senstype<Pump>sensindex<0>",
+            "{'mode': 'max'}");
+
+            client.Send("cl.sensor.set-settings", param).Wait();
         }
     }
 }
